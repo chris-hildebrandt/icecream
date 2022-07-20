@@ -113,17 +113,31 @@ function drawOrder(){
 </div>`)
   let orderElm = document.getElementById("receipt")
   orderElm.innerHTML = template
+  drawSubTotal()
+  drawTotal()
 }
 
-// function drawTotal(){
-//   let subtotal = 0
-//   currentOrder.forEach(order => subtotal += order.price)
-// }
+function drawSubTotal(){
+  let subtotal = 0
+  currentOrder.forEach(order => subtotal += order.price)
+  let subTotalElm = document.getElementById("subtotal")
+  subTotalElm.innerText = subtotal.toFixed(2)
+}
 
-// function clearOrders(){
-//   currentOrder = []
-//   drawOrder()
-// }
+function drawTotal(){
+  let total = 0
+  currentOrder.forEach(item => total += item.price)
+  let totalElm = document.getElementById("total")
+  total *= 1.06
+  totalElm.innerText = total.toFixed(2)
+}
+
+function clearOrders(){
+  if(window.confirm("Are you sure you want to cancel all orders?")){
+    currentOrder = []
+    drawOrder()
+  }
+}
 
 // deletItem(index){
 //   place 'onclick="deleteItem('${argument}')"'
