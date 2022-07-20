@@ -66,9 +66,9 @@ let currentOrder = []
 
 function drawToppings(){
   let template = ''
-  toppings.forEach(item => template += `<div class="card p-3 col-4" onclick="">
+  toppings.forEach(item => template += `<div class="card p-3 col-4" onclick="createOrder(toppings,'${item.name}')">
   <img class="img-fluid" src="${item.image}" alt="">
-  <div class="row justify-content-evenly"><p class="col">${item.name}</p><p class="col">$${item.price}</p></div>
+  <span class="row text-center align-items-center"><p class="col">${item.name}</p><p class="col">$${item.price}</p></span>
 </div>`)
 let toppingsElm = document.getElementById("toppings")
 toppingsElm.innerHTML = template
@@ -77,10 +77,9 @@ drawToppings()
 
 function drawVessels(){
   let template = ''
-  vessels.forEach(item => template += `<div class="col-4" onclick="">
+  vessels.forEach(item => template += `<div class="card p-3 col-4" onclick="createOrder(vessels,'${item.name}')">
   <img class="img-fluid" src="${item.image}" alt="">
-  <p>${item.name}</p>
-  <p>$${item.price}</p>
+  <span class="row text-center align-items-center"><p class="col">${item.name}</p><p class="col">$${item.price}</p></span>
 </div>`)
 let vesselsElm = document.getElementById("vessels")
 vesselsElm.innerHTML = template
@@ -89,20 +88,30 @@ drawVessels()
 
 function drawIceCream(){
   let template = ''
-  iceCream.forEach(item => template += `<div class="col-4" onclick="">
+  iceCream.forEach(item => template += `<div class="card p-3 col-4" onclick="createOrder(iceCream,'${item.name}')">
   <img class="img-fluid" src="${item.image}" alt="">
-  <p>${item.name}</p>
-  <p>$${item.price}</p>
+  <span class="row text-center align-items-center"><p class="col">${item.name}</p><p class="col">$${item.price}</p></span>
 </div>`)
 let iceCreamElm = document.getElementById("ice-cream")
 iceCreamElm.innerHTML = template
 }
 drawIceCream()
 
+function createOrder(array,itemName){
+  let newItem = array.find(objName => objName.name == itemName)
+currentOrder.push(newItem)
+drawOrder()
+}
+
 function drawOrder(){
   let template = ""
-  currentOrder.forEach(item => template += ``)
-  let orderElm = document.getElementById("order-area")
+  currentOrder.forEach(item => template += `<div class="row p-3">
+  <p class="col-4">${item.name}</p>
+  <p class="col-2">1</p>
+  <p class="col-2 offset-1">$${item.price.toFixed(2)}</p>
+  <p class="col-2 offset-1">$${item.price.toFixed(2)}</p>
+</div>`)
+  let orderElm = document.getElementById("receipt")
   orderElm.innerHTML = template
 }
 
