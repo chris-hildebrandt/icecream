@@ -105,12 +105,15 @@ drawOrder()
 
 function drawOrder(){
   let template = ""
-  currentOrder.forEach(item => template += `<div class="row p-3">
-  <p class="col-4">${item.name}</p>
+  currentOrder.forEach((item, i) => {
+    
+    
+    template += `<div class="row ${odd ? 'bg-dark': 'bg-light'} p-3">
+  <p class="col-4 item" onclick="deleteItem(${i})">${item.name}</p>
   <p class="col-2">1</p>
   <p class="col-2 offset-1">$${item.price.toFixed(2)}</p>
   <p class="col-2 offset-1">$${item.price.toFixed(2)}</p>
-</div>`)
+</div>`})
   let orderElm = document.getElementById("receipt")
   orderElm.innerHTML = template
   drawSubTotal()
@@ -139,8 +142,11 @@ function clearOrders(){
   }
 }
 
-// deletItem(index){
-//   place 'onclick="deleteItem('${argument}')"'
-//   let item = currentOrder[index]
-//   if(window.confirm)
-// }
+function deleteItem(index) {
+  let item = currentOrder[index]
+  console.log(item)
+  if(window.confirm(`Remove ${item.name} from the order?`)){
+    currentOrder.splice(item,1)
+  }
+  drawOrder()
+}
